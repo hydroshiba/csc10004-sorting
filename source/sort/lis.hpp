@@ -2,6 +2,7 @@
 #define SORT_LIS_HPP
 
 #include <cstdint>
+#include <algorithm>
 #include "merge.hpp"
 
 template <typename iter, class Compare>

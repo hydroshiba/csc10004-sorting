@@ -1,6 +1,16 @@
 #ifndef SORT_SELECTION_HPP
 #define SORT_SELECTION_HPP
 
+/* ---------------------- SELECTION SORT ---------------------- */
+
+/*
+- Average Complexity: O(N^2)
+- Best Complexity: O(N^2)
+- Worst Complexity: O(N^2)
+- Space Complexity: O(1)
+- Stability: No
+*/
+
 #include <utility>
 
 template <typename iter, class Compare>

@@ -10,22 +10,24 @@
 #include "source/sort/heap.hpp"
 #include "source/sort/lis.hpp"
 #include "source/sort/merge.hpp"
+#include "source/sort/quick.hpp"
 #include "source/sort/selection.hpp"
 
 void sortTest() {
-	int n = 100000;
+	int n = 1000000;
 	std::vector<int> arr(n);
 
 	// To generate random numbers, use random(min, max)
 
 	for(int &i : arr) i = random(1, n);
+	std::vector<int> vec = arr;
 	
 	// To time a sorting algorithm, create a timer object and call start() before the sorting algorithm and get() after it
 
 	Timer timer;
 	timer.start();
 	
-	mergeSort(arr.begin(), arr.end());
+	mergeSort(vec.begin(), vec.end());
 	std::cout << "Time: " << timer.get() << std::endl;
 
 	// To count the number of comparisons, create a comparator object and pass it to the sorting algorithm

@@ -1,6 +1,16 @@
 #ifndef SORT_HEAP_HPP
 #define SORT_HEAP_HPP
 
+/* ---------------------- HEAP SORT ---------------------- */
+
+/*
+- Average Complexity: O(N log N)
+- Best Complexity: O(N log N)
+- Worst Complexity: O(N log N)
+- Space Complexity: O(1)
+- Stability: No
+*/
+
 #include <cstdint>
 #include <cstddef>
 #include <utility>

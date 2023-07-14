@@ -1,6 +1,16 @@
 #ifndef SORT_MERGE_HPP
 #define SORT_MERGE_HPP
 
+/* ---------------------- MERGE SORT ---------------------- */
+
+/*
+- Average Complexity: O(N log N)
+- Best Complexity: O(N log N)
+- Worst Complexity: O(N log N)
+- Space Complexity: O(N)
+- Stability: Yes
+*/
+
 #include <cstdint>
 
 template <typename iter, class Compare>
@@ -12,7 +22,7 @@ void merge(iter lbegin, iter lend, iter rbegin, iter rend, iter begin, Compare &
 	Type* pos = temp;
 
 	while(lbegin < lend && rbegin < rend) {
-		iter &cur = (func(*lbegin, *rbegin) ? lbegin : rbegin);
+		iter &cur = (!func(*rbegin, *lbegin) ? lbegin : rbegin);
 		*pos = *cur;
 
 		++pos;

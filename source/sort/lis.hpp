@@ -1,6 +1,19 @@
 #ifndef SORT_LIS_HPP
 #define SORT_LIS_HPP
 
+/* ---------------------- LIS SORT ---------------------- */
+
+// See codeforces.com/blog/entry/97703 for an in-depth exploration of this algorithm.
+// Refer to source/sort/merge.hpp for merge function.
+
+/*
+- Average Complexity: O(N sqrt(N) log N)
+- Best Complexity: O(N log N)
+- Worst Complexity: O(N sqrt(N) log N)
+- Space Complexity: O(sqrt(N))
+- Stability: No
+*/
+
 #include <cstdint>
 #include <algorithm>
 #include "merge.hpp"

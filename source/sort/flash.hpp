@@ -6,12 +6,10 @@
 #include <vector>
 
 template<class Compare>
-void flashSort(std::vector<int>& arr, Compare &func) {
-    int n = arr.size();
-
+void flashSort(int* arr, int n, Compare &func) {
     if (n <= 1) return;
 
-    int m = static_cast<int>(n * 0.43);
+    int m = (int)(n * 0.43);
     if (m <= 2) m = 2;
 
     std::vector<int> L(m, 0);

@@ -5,8 +5,7 @@
 #include <vector>
 
 template<class Compare>
-void shellSort(std::vector<int> &arr, Compare &func) {
-    int n = arr.size();
+void shellSort(int* arr, int n, Compare &func) {
     // Compute the maximum Knuth's increment
     int h = 1;
     while (func(h, n/3)) {

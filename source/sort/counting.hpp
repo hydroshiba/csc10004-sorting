@@ -26,10 +26,9 @@
 // }
 
 template<class Compare>
-void countingSort(std::vector<int> &arr, Compare &func)
+void countingSort(int* arr, int n, Compare &func)
 {
-    int n = arr.size();
-    int max_val = *std::max_element(arr.begin(), arr.end());
+    int max_val = *std::max_element(arr, arr+n);
     func.count += n - 1; //max_element uses max((last-begin)-1, 0) comparisons
     int count[max_val + 1]{0};
     for (int i = 0; func(i, n); i++)

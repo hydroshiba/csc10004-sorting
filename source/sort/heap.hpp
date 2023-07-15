@@ -11,8 +11,7 @@
 - Stability: No
 */
 
-#include <cstdint>
-#include <cstddef>
+#include <iterator>
 #include <utility>
 
 template <typename iter, class Compare>

@@ -14,8 +14,8 @@
 - Stability: No
 */
 
-#include <cstdint>
 #include <algorithm>
+#include <iterator>
 #include "merge.hpp"
 
 template <typename iter, class Compare>

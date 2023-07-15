@@ -3,11 +3,11 @@
 
 #include <cstdint>
 
-template<typename T>
+template<typename Type>
 struct Comparator {
 	uintmax_t count = 0;
 
-	bool operator ()(const T &a, const T &b) {
+	bool operator ()(const Type &a, const Type &b) {
 		++count;
 		return a < b;
 	}

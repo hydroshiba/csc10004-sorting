@@ -11,14 +11,15 @@
 - Stability: No
 */
 
+#include <iterator>
 #include <utility>
 
 template <typename iter, class Compare>
 void selectionSort(iter begin, iter end, Compare &func) {
-    for(iter i = begin; i != end; i++) {
+    for(iter i = begin; i != end; ++i) {
         iter min = i;
 
-        for(iter j = i + 1; j != end; j++) {
+        for(iter j = i + 1; j != end; ++j) {
             if (func(*j, *min)) {
                 min = j;
             }

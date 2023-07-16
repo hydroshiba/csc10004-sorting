@@ -1,6 +1,16 @@
 #ifndef SORT_BUBBLE_HPP
 #define SORT_BUBBLE_HPP
 
+/* ---------------------- BUBBLE SORT ---------------------- */
+
+/*
+- Average Complexity: O(N^2)
+- Best Complexity: O(N)
+- Worst Complexity: O(N^2)
+- Space Complexity: O(1)
+- Stability: Yes
+*/
+
 #include <iterator>
 #include <utility>
 

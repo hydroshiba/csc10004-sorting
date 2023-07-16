@@ -5,16 +5,16 @@
 #include <ctime> 
 
 struct Timer {
-	std::chrono::high_resolution_clock::time_point point;
+	std::chrono::high_resolution_clock::time_point point = std::chrono::high_resolution_clock::now();
 
 	void start() {
 		point = std::chrono::high_resolution_clock::now();
 	}
 
-	double_t get() {
+	int64_t get() {
 		auto current = std::chrono::high_resolution_clock::now();
 		int64_t milli =  std::chrono::duration_cast<std::chrono::milliseconds>(current - point).count();
-		return milli / 1000.0; 
+		return milli;
 	}
 };
 

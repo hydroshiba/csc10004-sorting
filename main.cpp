@@ -121,11 +121,11 @@ void insertionSort_test()
 		GenerateData(TempArr, n, 0);
 		for (int i = 0; i < n; ++i)
 			TempArr1[i] = TempArr[i];
-
-		auto start_time = std::chrono::high_resolution_clock::now();
+		Timer timer;
+		timer.start();
+		
 		insertionSort(TempArr, n);
-		auto finish_time = std::chrono::high_resolution_clock::now();
-		cout << "Duration of " << i << " is: " << duration_cast<milliseconds>(finish_time - start_time).count() << " milliseconds" << endl;
+		cout << "Duration of " << i << " is: " << timer.get() << " milliseconds" << endl;
 
 		Comparator<int> cmp;
 		insertionSort_countCmp(TempArr1, n, cmp.count);
@@ -138,13 +138,15 @@ void insertionSort_test()
 	TempArr = nullptr;
 }
 
-void bubbleSort_test() {
-	
+void bubbleSort_test()
+{
+
 	int n = 70000;
 	int *TempArr = new int[n];
 	int *TempArr1 = new int[n];
 
-	for (int i = 0; i <= 3; ++i) {
+	for (int i = 0; i <= 3; ++i)
+	{
 		GenerateData(TempArr, n, 0);
 		for (int i = 0; i < n; ++i)
 			TempArr1[i] = TempArr[i];
@@ -178,10 +180,11 @@ void shakerSort_test()
 		for (int i = 0; i < n; ++i)
 			TempArr1[i] = TempArr[i];
 
-		auto start_time = std::chrono::high_resolution_clock::now();
-		shakerSort(TempArr,n);
-		auto finish_time = std::chrono::high_resolution_clock::now();
-		cout << "Duration of " << i << " is: " << duration_cast<milliseconds>(finish_time - start_time).count() << " milliseconds" << endl;
+		Timer timer;
+		timer.start();
+
+		shakerSort(TempArr, n);
+		cout << "Duration of " << i << " is: " << timer.get() << " milliseconds" << endl;
 
 		Comparator<int> cmp;
 		shakerSort_countCMP(TempArr1, n, cmp.count);

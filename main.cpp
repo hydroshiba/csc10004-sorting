@@ -19,7 +19,7 @@ using namespace std::chrono;
 #include "source/sort/insertion.hpp"
 #include "source/sort/lis.hpp"
 #include "source/sort/merge.hpp"
-#include "source/sort/quick.hpp"
+// #include "source/sort/quick.hpp"
 #include "source/sort/selection.hpp"
 
 void sortTest()

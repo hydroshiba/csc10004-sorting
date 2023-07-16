@@ -1,6 +1,9 @@
 #ifndef SORT_SHAKER_HPP
 #define SORT_SHAKER_HPP
 
+#include <iterator>
+#include <utility>
+
 template<class Comparator>
 void shakerSort_countCMP(int *a, int n, Comparator &count)
 {
@@ -13,7 +16,7 @@ void shakerSort_countCMP(int *a, int n, Comparator &count)
 		{
 			if (++count && a[i] > a[i + 1])
 			{
-				swapNum(a[i], a[i + 1]);
+				std::swap(a[i], a[i + 1]);
 				k = i;
 			}
 		}
@@ -22,7 +25,7 @@ void shakerSort_countCMP(int *a, int n, Comparator &count)
 		{
 			if (++count && a[i] < a[i - 1])
 			{
-				swapNum(a[i], a[i - 1]);
+				std::swap(a[i], a[i - 1]);
 				k = i;
 			}
 		}
@@ -42,7 +45,7 @@ void shakerSort(int* a, int n)
 		{
 			if (a[i] > a[i + 1])
 			{
-				swapNum(a[i], a[i + 1]);
+				std::swap(a[i], a[i + 1]);
 				k = i;
 			}
 		}
@@ -51,7 +54,7 @@ void shakerSort(int* a, int n)
 		{
 			if (a[i] < a[i - 1])
 			{
-				swapNum(a[i], a[i - 1]);
+				std::swap(a[i], a[i - 1]);
 				k = i;
 			}
 		}

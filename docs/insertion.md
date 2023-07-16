@@ -5,7 +5,7 @@ This is a presentation about the bubble sort algorithm, which is represented by 
 
 ## 🔴 IDEAS
 
-The basic idea behind Insertion Sort is to take an element from the unsorted portion of the array and insert it into its correct position in the sorted portion of the array. 
+The basic idea behind _`Insertion Sort`_ is to take an element from the unsorted portion of the array and insert it into its correct position in the sorted portion of the array. 
 
 This process is repeated until the entire array is sorted.
 
@@ -25,32 +25,32 @@ This process is repeated until the entire array is sorted.
 7. _Continue_ this process until the entire array becomes sorted.
 
 ## 🔴PSEUDOCODE
-    for (i <- 0 to n - 2)
-
-      for (j <- 0 to n - i - 1)
-  
-        if (a[j] > a[j + 1]) then a[j] <-> a[j + 1]
-    
-          end
-      
-    end
+    for (i <- 0 to n - 1) do
+        x <- a[i]
+        pos <- i - 1;
+        while (pos >= 0 && a[pos] > x) do
+            a[ pos + 1] = a[pos]
+            pos <- pos - 1;
+        end while
+        a[pos + 1] = x
+    end for
 
 ## 🔴COMPLEXITY:
-_Average Complexity:_ $O(N^2)$
-- `Best Complexity:` $O(N)$
-- `Worst Complexity:` $O(N^2)$
+_Average Case Complexity:_ $O(N^2)$
+- `Best Case Complexity:` $O(N)$
+- `Worst Case Complexity:` $O(N^2)$
 - `Space Complexity:` $O(1)$
 - `Stability:` $Yes$
 
 ## 🔴VARIANTS/IMPROMENTS:
 
-### Modified Bubble Sort (or Short Bubble Sort)
+### 1. Binary Insertion Sort
 
-This variant of `Bubble Sort` makes a small optimization to the standard `Bubble Sort`. The idea is to introduce a flag that keeps track of whether any swaps were made during a pass through the array. If no swaps were made during a pass, it means the array is already sorted, and the algorithm can terminate early. This helps to reduce the number of unnecessary comparisons and swaps, especially in nearly sorted arrays.
+`Binary Insertion Sort` is a modification of the standard `Insertion Sort` that uses binary search to find the correct position to insert an element into the sorted portion of the array. In the standard `Insertion Sort`, finding the correct position involves linear search, which takes $O(n)$ time in the worst case. Binary search reduces this to $O(log n)$ time, resulting in a more efficient insertion process. However, the overall time complexity of `Binary Insertion Sort` remains $O(n^2)$ due to the shifting of elements.
 
-### Comb Sort:
+### 2. Block Sort
 
-`Comb Sort` is another improvement over Bubble Sort that addresses some of its limitations. Instead of comparing and swapping adjacent elements, Comb Sort uses a "gap" value that starts as the length of the array and reduces in each pass until it becomes 1 (similar to the idea of `Shell Sort`). The gap value determines the distance between elements being compared and swapped. By using a larger gap initially, `Comb Sort` can quickly eliminate small elements at the end of the array and then progressively reduce the gap to perform smaller, more fine-grained comparisons and swaps.
+`Block Sort` is another variant of `Insertion Sort` that sorts elements in blocks of fixed size. The sorting process is performed within these blocks using `Insertion Sort`. Once the blocks are sorted, they are merged to produce the final sorted array. `Block Sort` can improve the performance of `Insertion Sort` for large arrays by reducing the number of comparisons and movements.
 
 
 

@@ -7,29 +7,28 @@
 
 using namespace std;
 
-template <class value, class comparator>
-void insertion_sort_countCompare(value *arr, int n, comparator &compare_func)
+template <class Comparator>
+void insertionSort_countCmp(int *arr, int size, Comparator &count)
 {
-    value i, key, j;
-    for (i = 1;(++compare_func.count) && (i < n); i++)
+    int i, key, j;
+    for (i = 1; ++count && i < size; i++)
     {
         key = arr[i];
         j = i - 1;
-        while ((++compare_func.count) && (j >= 0 && arr[j] > key))
+        while (++count && (j >= 0 && arr[j] > key))
         {
+            ++count;
             arr[j + 1] = arr[j];
             j = j - 1;
-            ++compare_func.count;
         }
         arr[j + 1] = key;
     }
 }
 
-template <class value>
-void insertion_sort(value *arr, int n)
+void insertionSort(int *arr, int size)
 {
-    value i, key, j;
-    for (i = 1; i < n; i++)
+    int i, key, j;
+    for (i = 1; i < size; i++)
     {
         key = arr[i];
         j = i - 1;
@@ -41,6 +40,5 @@ void insertion_sort(value *arr, int n)
         arr[j + 1] = key;
     }
 }
-
 
 #endif

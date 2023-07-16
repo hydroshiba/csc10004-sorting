@@ -1,4 +1,4 @@
-# Bubble Sort Algorithm Presentation
+# Insertion Sort Algorithm Presentation
 
 This is a presentation about the bubble sort algorithm, which is represented by Nguyen Thanh Thai - Student ID: 22127383
 

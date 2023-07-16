@@ -138,26 +138,25 @@ void insertionSort_test()
 	TempArr = nullptr;
 }
 
-void bubbleSort_test()
-{
+void bubbleSort_test() {
 	
-	int n = 100000;
+	int n = 70000;
 	int *TempArr = new int[n];
 	int *TempArr1 = new int[n];
 
-	for (int i = 0; i <= 3; ++i)
-	{
+	for (int i = 0; i <= 3; ++i) {
 		GenerateData(TempArr, n, 0);
 		for (int i = 0; i < n; ++i)
 			TempArr1[i] = TempArr[i];
 
-		auto start_time = std::chrono::high_resolution_clock::now();
-		bubbleSort(TempArr,n);
-		auto finish_time = std::chrono::high_resolution_clock::now();
-		cout << "Duration of " << i << " is: " << duration_cast<milliseconds>(finish_time - start_time).count() << " milliseconds" << endl;
+		Timer timer;
+		timer.start();
+
+		bubbleSort(TempArr, TempArr + n);
+		cout << "Duration of " << i << " is: " << timer.get() << " milliseconds" << endl;
 
 		Comparator<int> cmp;
-		bubbleSort_countCmp(TempArr1, n, cmp.count);
+		bubbleSort(TempArr1, TempArr1 + n, cmp);
 		cout << "Comparisions: " << cmp.count << endl;
 	}
 
@@ -195,10 +194,9 @@ void shakerSort_test()
 	TempArr = nullptr;
 }
 
-
 int main()
 {
 	// sortTest();
-	shakerSort_test();
+	bubbleSort_test();
 	return 0;
 }

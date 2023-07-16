@@ -1,49 +1,31 @@
 #ifndef SORT_BUBBLE_HPP
 #define SORT_BUBBLE_HPP
 
+#include <iterator>
+#include <utility>
 
-template<class val>
-void swapNum(val &a, val &b)
-{
-    val temp = a;
-    a = b;
-    b = temp;
-}
+template <typename iter, class Compare>
+void bubbleSort(iter begin, iter end, Compare &func) {
+    for(iter i = end - 1; i != begin; --i) {
+        bool swapped = false;
 
-template<class Comparator>
-void bubbleSort_countCmp(int *arr, int n,Comparator &count)
-{
-    int i, j;
-    bool swapped;
-    for (i = 0; ++count && i < n - 1; i++) {
-        swapped = false;
-        for (j = 0; ++count && j < n - i - 1; j++) {
-            if (++count && (arr[j] > arr[j + 1])) {
-                swapNum(arr[j], arr[j + 1]);
+        for(iter j = begin; j != i; ++j) {
+            if(func(*(j + 1), *j)) {
+                std::swap(*j, *(j + 1));
                 swapped = true;
             }
         }
-        if (++count && (swapped == false))
-            break;
+
+        if(!swapped) break;
     }
 }
 
-void bubbleSort(int *arr, int n)
-{
-    int i, j;
-    bool swapped;
-    for (i = 0; i < n - 1; i++) {
-        swapped = false;
-        for (j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swapNum(arr[j], arr[j + 1]);
-                swapped = true;
-            }
-        }
-        if (swapped == false)
-            break;
-    }
-}
+template <typename iter>
+void bubbleSort(iter begin, iter end) {
+    using Type = typename std::iterator_traits<__typeof(iter)>::value_type;
 
+    auto func = std::less<Type>();
+    bubbleSort(begin, end, func);
+}
 
 #endif

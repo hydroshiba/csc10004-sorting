@@ -125,7 +125,7 @@ void insertionSort_test()
 		auto start_time = std::chrono::high_resolution_clock::now();
 		insertionSort(TempArr, n);
 		auto finish_time = std::chrono::high_resolution_clock::now();
-		cout << "Duration of " << i << " is: " << duration_cast<microseconds>(finish_time - start_time).count() << " microseconds" << endl;
+		cout << "Duration of " << i << " is: " << duration_cast<milliseconds>(finish_time - start_time).count() << " milliseconds" << endl;
 
 		Comparator<int> cmp;
 		insertionSort_countCmp(TempArr1, n, cmp.count);
@@ -154,7 +154,7 @@ void bubbleSort_test()
 		auto start_time = std::chrono::high_resolution_clock::now();
 		bubbleSort(TempArr,n);
 		auto finish_time = std::chrono::high_resolution_clock::now();
-		cout << "Duration of " << i << " is: " << duration_cast<microseconds>(finish_time - start_time).count() << " microseconds" << endl;
+		cout << "Duration of " << i << " is: " << duration_cast<milliseconds>(finish_time - start_time).count() << " milliseconds" << endl;
 
 		Comparator<int> cmp;
 		bubbleSort_countCmp(TempArr1, n, cmp.count);
@@ -182,7 +182,7 @@ void shakerSort_test()
 		auto start_time = std::chrono::high_resolution_clock::now();
 		shakerSort(TempArr,n);
 		auto finish_time = std::chrono::high_resolution_clock::now();
-		cout << "Duration of " << i << " is: " << duration_cast<microseconds>(finish_time - start_time).count() << " microseconds" << endl;
+		cout << "Duration of " << i << " is: " << duration_cast<milliseconds>(finish_time - start_time).count() << " milliseconds" << endl;
 
 		Comparator<int> cmp;
 		shakerSort_countCMP(TempArr1, n, cmp.count);

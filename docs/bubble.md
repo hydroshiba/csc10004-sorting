@@ -24,8 +24,9 @@ The algorithm gets its name from the way smaller elements "bubble" to the top of
 ## 🔴PSEUDOCODE
     for (i <- 0 to n - 2)
       for (j <- 0 to n - i - 1)
-        if (a[j] > a[j + 1]) 
-          then a[j] <-> a[j + 1]
+        if (a[j] > a[j + 1]) then
+            a[j] <-> a[j + 1]
+        end if
       end for
     end for
     

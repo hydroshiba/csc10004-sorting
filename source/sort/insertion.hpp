@@ -7,17 +7,16 @@
 
 using namespace std;
 
-template <class Comparator>
-void insertionSort_countCmp(int *arr, int size, Comparator &count)
+template <class Compare>
+void insertionSort(int *arr, int size, Compare &func)
 {
     int i, key, j;
-    for (i = 1; ++count && i < size; i++)
+    for (i = 1; func(i, size); i++)
     {
         key = arr[i];
         j = i - 1;
-        while (++count && (j >= 0 && arr[j] > key))
+        while ( func.count++ && (j >= 0 && arr[j] > key) && func.count++)
         {
-            ++count;
             arr[j + 1] = arr[j];
             j = j - 1;
         }
@@ -25,20 +24,20 @@ void insertionSort_countCmp(int *arr, int size, Comparator &count)
     }
 }
 
-void insertionSort(int *arr, int size)
-{
-    int i, key, j;
-    for (i = 1; i < size; i++)
-    {
-        key = arr[i];
-        j = i - 1;
-        while (j >= 0 && arr[j] > key)
-        {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
-    }
-}
+// void insertionSort(int *arr, int size)
+// {
+//     int i, key, j;
+//     for (i = 1; i < size; i++)
+//     {
+//         key = arr[i];
+//         j = i - 1;
+//         while (j >= 0 && arr[j] > key)
+//         {
+//             arr[j + 1] = arr[j];
+//             j = j - 1;
+//         }
+//         arr[j + 1] = key;
+//     }
+// }
 
 #endif

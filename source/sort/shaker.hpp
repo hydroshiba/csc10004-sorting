@@ -4,26 +4,26 @@
 #include <iterator>
 #include <utility>
 
-template<class Comparator>
-void shakerSort_countCMP(int *a, int n, Comparator &count)
+template<class Compare>
+void shakerSort(int *a, int n, Compare &func)
 {
 	int Left = 0;
 	int Right = n - 1;
 	int k = 0;
-	while (++count && Left < Right)
+	while (++func.count && Left < Right)
 	{
-		for (int i = Left; ++count && i < Right; i++)
+		for (int i = Left; ++func.count && i < Right; i++)
 		{
-			if (++count && a[i] > a[i + 1])
+			if (++func.count && a[i] > a[i + 1])
 			{
 				std::swap(a[i], a[i + 1]);
 				k = i;
 			}
 		}
 		Right = k;
-		for (int i = Right;++count && i > Left; i--)
+		for (int i = Right; ++func.count && i > Left; i--)
 		{
-			if (++count && a[i] < a[i - 1])
+			if (func(a[i], a[i - 1]))
 			{
 				std::swap(a[i], a[i - 1]);
 				k = i;
@@ -34,32 +34,32 @@ void shakerSort_countCMP(int *a, int n, Comparator &count)
 }
 
 
-void shakerSort(int* a, int n)
-{
-	int Left = 0;
-	int Right = n - 1;
-	int k = 0;
-	while (Left < Right)
-	{
-		for (int i = Left; i < Right; i++)
-		{
-			if (a[i] > a[i + 1])
-			{
-				std::swap(a[i], a[i + 1]);
-				k = i;
-			}
-		}
-		Right = k;
-		for (int i = Right; i > Left; i--)
-		{
-			if (a[i] < a[i - 1])
-			{
-				std::swap(a[i], a[i - 1]);
-				k = i;
-			}
-		}
-		Left = k;
-	}
-}
+// void shakerSort(int* a, int n)
+// {
+// 	int Left = 0;
+// 	int Right = n - 1;
+// 	int k = 0;
+// 	while (Left < Right)
+// 	{
+// 		for (int i = Left; i < Right; i++)
+// 		{
+// 			if (a[i] > a[i + 1])
+// 			{
+// 				std::swap(a[i], a[i + 1]);
+// 				k = i;
+// 			}
+// 		}
+// 		Right = k;
+// 		for (int i = Right; i > Left; i--)
+// 		{
+// 			if (a[i] < a[i - 1])
+// 			{
+// 				std::swap(a[i], a[i - 1]);
+// 				k = i;
+// 			}
+// 		}
+// 		Left = k;
+// 	}
+// }
 
 #endif

@@ -26,10 +26,14 @@ void heapify(iter begin, iter end, iter pos, Compare &func) {
 
 		iter next;
 
-		if(left >= end || (right < end && func(*left, *right))) next = right;
+		if(left >= end || (right < end && func(*left, *right))) {
+			next = right;
+			func.count+=2;
+		}
 		else next = left;
 
 		if(next < end && func(*cur, *next)) {
+			func.count++;
 			std::swap(*cur, *next);
 			cur = next;
 			continue;
@@ -44,6 +48,7 @@ void heapBuild(iter begin, iter end, Compare &func) {
 	intmax_t size = end - begin;
 
 	for(intmax_t i = size / 2; i > -1; --i) {
+		func.count++;
 		heapify(begin, end, begin + i, func);
 	}
 }
@@ -53,9 +58,15 @@ void heapSort(iter begin, iter end, Compare &func) {
 	heapBuild(begin, end, func);
 
 	for(iter i = end - 1; i > begin; --i) {
+		func.count++;
 		std::swap(*begin, *i);
 		heapify(begin, i, begin, func);
 	}
+}
+
+template<class Compare>
+void heapSort(int* arr, int n, Compare &func) {
+	heapSort(arr, arr+n, func);
 }
 
 template <typename iter>

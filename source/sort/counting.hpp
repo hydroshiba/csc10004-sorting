@@ -35,15 +35,13 @@ void countingSort(int* arr, int n, Compare &func)
     {
         count[arr[i]]++;
     }
-    for (int i = 1; i <= max_val; i++)
+    for (int i = 1; ++func.count && i <= max_val; i++)
     {
-        func.count++;
         count[i] += count[i - 1];
     }
     int output[n];
-    for (int i = n - 1; i >= 0; i--)
+    for (int i = n - 1; ++func.count && i >= 0; i--)
     {
-        func.count++;
         output[count[arr[i]] - 1] = arr[i];
         count[arr[i]]--;
     }

@@ -22,7 +22,7 @@ void merge(iter lbegin, iter lend, iter rbegin, iter rend, iter begin, Compare &
     Type* temp = new Type[size];
     Type* pos = temp;
 
-    while(lbegin < lend && rbegin < rend) {
+    while(++func.count && lbegin < lend && ++func.count && rbegin < rend) {
         iter &cur = (!func(*rbegin, *lbegin) ? lbegin : rbegin);
         *pos = *cur;
 
@@ -30,19 +30,19 @@ void merge(iter lbegin, iter lend, iter rbegin, iter rend, iter begin, Compare &
         ++cur;
     }
 
-    while(lbegin < lend) {
+    while(++func.count && lbegin < lend) {
         *pos = *lbegin;
         ++lbegin;
         ++pos;
     }
 
-    while(rbegin < rend) {
+    while(++func.count && rbegin < rend) {
         *pos = *rbegin;
         ++rbegin;
         ++pos;
     }
 
-    for(size_t i = 0; i < size; i++) {
+    for(size_t i = 0; ++func.count && i < size; i++) {
         *begin = temp[i];
         ++begin;
     }
@@ -53,17 +53,25 @@ void merge(iter lbegin, iter lend, iter rbegin, iter rend, iter begin, Compare &
 template <typename iter, class Compare>
 void mergeSort(iter begin, iter end, Compare &func) {
     size_t size = end - begin;
-    if (size < 2) return;
+    if (func(size, 2)) return;
 
     for(size_t i = 1; i < size; i <<= 1) {
+        func.count++;
         for(size_t j = 0; j < size; j += (i << 1)) {
+            func.count++;
             iter left = begin + j;
             iter mid = begin + std::min(j + i, size);
+            func.count++;
             iter right = begin + std::min(j + (i << 1), size);
-
+            func.count++;
             merge(left, mid, mid, right, left, func);
         }
     }
+}
+
+template<class Compare>
+void mergeSort(int* arr, int n, Compare &func) {
+    mergeSort(arr, arr+n, func);
 }
 
 template <typename iter>

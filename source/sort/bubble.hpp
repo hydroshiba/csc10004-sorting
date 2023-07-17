@@ -16,18 +16,22 @@
 
 template <typename iter, class Compare>
 void bubbleSort(iter begin, iter end, Compare &func) {
-    for(iter i = end - 1; i != begin; --i) {
+    for(iter i = end - 1; ++func.count && i != begin; --i) {
         bool swapped = false;
-
-        for(iter j = begin; j != i; ++j) {
+        for(iter j = begin; ++func.count && j != i; ++j) {
             if(func(*(j + 1), *j)) {
                 std::swap(*j, *(j + 1));
                 swapped = true;
             }
         }
 
-        if(!swapped) break;
+        if(++func.count && !swapped) break;
     }
+}
+
+template<class Compare>
+void bubbleSort(int* arr, int n, Compare &func) {
+    bubbleSort(arr, arr+n, func);
 }
 
 template <typename iter>

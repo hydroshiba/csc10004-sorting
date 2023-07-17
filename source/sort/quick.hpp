@@ -7,4 +7,7 @@
 
 #include <iostream>
 
+template<class Compare>
+void quickSort(int *arr, int n, Compare &func) {}
+
 #endif

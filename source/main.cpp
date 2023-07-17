@@ -11,14 +11,11 @@
 #include <unordered_map>
 #include <cstring>
 
-using namespace std;
-using namespace std::chrono;
-
 // Utilities
-#include "source/utility/comparator.hpp"
-#include "source/utility/random.hpp"
-#include "source/utility/timer.hpp"
-#include "source/utility/DataGenerator.cpp"
+#include "utility/comparator.hpp"
+#include "utility/random.hpp"
+#include "utility/timer.hpp"
+#include "utility/DataGenerator.cpp"
 
 // Sorting algorithms
 #include "source/sort/heap.hpp"

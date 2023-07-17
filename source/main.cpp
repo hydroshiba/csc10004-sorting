@@ -3,9 +3,6 @@
 #include <vector>
 #include <chrono>
 
-using namespace std;
-using namespace std::chrono;
-
 // Utilities
 #include "source/utility/comparator.hpp"
 #include "source/utility/random.hpp"

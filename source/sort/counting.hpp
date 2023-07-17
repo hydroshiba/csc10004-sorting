@@ -1,5 +1,5 @@
-#ifndef COUNTING_SORT_
-#define COUNTING_SORT_
+#ifndef SORT_COUNTING_HPP
+#define SORT_COUNTING_HPP
 
 #include <algorithm>
 #include <vector>

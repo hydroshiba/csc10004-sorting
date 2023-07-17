@@ -1,5 +1,5 @@
-#ifndef FLASH_SORT_
-#define FLASH_SORT_
+#ifndef SORT_FLASH_HPP
+#define SORT_FLASH_HPP
 
 #include <vector>
 #include <algorithm>

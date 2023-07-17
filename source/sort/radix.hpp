@@ -1,5 +1,5 @@
-#ifndef RADIX_SORT_
-#define RADIX_SORT_
+#ifndef SORT_RADIX_HPP
+#define SORT_RADIX_HPP
 
 #include <iostream>
 #include "utility"

@@ -1,5 +1,5 @@
-#ifndef SHELL_SORT_
-#define SHELL_SORT_
+#ifndef SORT_SHELL_HPP
+#define SORT_SHELL_HPP
 
 #include <algorithm>
 #include <vector>

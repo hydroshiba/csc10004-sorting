@@ -4,20 +4,20 @@
 #include <chrono>
 
 // Utilities
-#include "source/utility/comparator.hpp"
-#include "source/utility/random.hpp"
-#include "source/utility/timer.hpp"
-#include "source/utility/DataGenerator.cpp"
+#include "utility/comparator.hpp"
+#include "utility/random.hpp"
+#include "utility/timer.hpp"
+#include "utility/DataGenerator.cpp"
 
 // Sorting algorithms
-#include "source/sort/heap.hpp"
-#include "source/sort/bubble.hpp"
-#include "source/sort/shaker.hpp"
-#include "source/sort/insertion.hpp"
-#include "source/sort/lis.hpp"
-#include "source/sort/merge.hpp"
-// #include "source/sort/quick.hpp"
-#include "source/sort/selection.hpp"
+#include "sort/heap.hpp"
+#include "sort/bubble.hpp"
+#include "sort/shaker.hpp"
+#include "sort/insertion.hpp"
+#include "sort/lis.hpp"
+#include "sort/merge.hpp"
+// #include "sort/quick.hpp"
+#include "sort/selection.hpp"
 
 void sortTest()
 {

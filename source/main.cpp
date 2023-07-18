@@ -52,12 +52,12 @@ unordered_map<string, int> sortingAlgo = {
 
 unordered_map<string, int> inputType = {
     {"-rand", 0}, 
-    {"-sorted", 1}, 
-    {"-rev", 2}, 
-    {"-nsorted", 3}
+    {"-sorted", 2}, 
+    {"-rev", 3}, 
+    {"-nsorted", 1}
 };
 
-const char* typeName[] = {"Randomized data", "Sorted data", "Reverse sorted data", "Nearly sorted data"};
+const char* typeName[] = {"Randomized data", "Nearly sorted data", "Sorted data", "Reverse sorted data"};
 
 unordered_map<string, int> outParams = {
     {"-time", 0}, 
@@ -103,6 +103,19 @@ int* duplicateArray(int* arr, int n) {
     return newArr;
 }
 
+void exportFile(int* arr, int n, string name) {
+    ofstream ofile {name};
+    if (!ofile) {
+        cout << "Error: cannot create export file" << endl;
+        return;
+    }
+    ofile << n << endl;
+    for (int i = 0; i < n; i++) {
+        ofile << arr[i] << " ";
+    }
+    ofile.close();
+}
+
 int main(int argc, char* argv[]) {
     if (strcmp(argv[1], "-a") == 0) {
         if (argc == 6) {
@@ -121,12 +134,15 @@ int main(int argc, char* argv[]) {
 			int* arr = new int[size];
 			Timer timer;
 			GenerateData(arr, size, type);
-			Comparator<int> func;
+            exportFile(arr, size, "input.txt");
+			Comparator<int> func;   
 			timer.start();
 			sortFunc[algo](arr, size, func);
 			int64_t totalTime = timer.get();
+            cout << "-----------------------------" << endl;
 			cout << "Running time (if required): " << ((param==0 || param==2) ? to_string(totalTime):"") << endl;
 			cout << "Comparisons (if required): " << ((param==1 || param==2) ? to_string(func.count):"") << endl;
+            exportFile(arr, size, "output.txt");
             delete [] arr;
 			return 2;
         }
@@ -160,6 +176,7 @@ int main(int argc, char* argv[]) {
                     int64_t totalTime = timer.get();
                     cout << "Running time (if required): " << ((param==0 || param==2) ? to_string(totalTime):"") << endl;
                     cout << "Comparisons (if required): " << ((param==1 || param==2) ? to_string(func.count):"") << endl;
+                    exportFile(arr, size, "input_"+to_string(i+1)+".txt");
                     delete [] arr;
                 }
                 return 3;
@@ -184,8 +201,10 @@ int main(int argc, char* argv[]) {
             timer.start();
             sortFunc[algo](arr, size, func);
             int64_t totalTime = timer.get();
+            cout << "-----------------------------" << endl;
             cout << "Running time (if required): " << ((param==0 || param==2) ? to_string(totalTime):"") << endl;
             cout << "Comparisons (if required): " << ((param==1 || param==2) ? to_string(func.count):"") << endl;
+            exportFile(arr, size, "output.txt");
             delete [] arr;
             return 1;
         }
@@ -235,6 +254,7 @@ int main(int argc, char* argv[]) {
             }
             int* arr1 = new int[size];
             GenerateData(arr1, size, type);
+            exportFile(arr1, size, "input.txt");
             int* arr2 = duplicateArray(arr1, size);
             cout << "Algorithm: " << algoName[algo1] << " | " << algoName[2] << endl;
             cout << "Input file: " << argv[4] << endl;

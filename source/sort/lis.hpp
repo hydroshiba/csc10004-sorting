@@ -20,7 +20,7 @@
 
 template <typename iter, class Compare>
 iter* lis(iter begin, iter end, Compare &func) {
-	auto argfunc = [&](const iter &a, const iter &b) {
+	auto argfunc = [&func](const iter &a, const iter &b) {
 		return func(*a, *b);
 	};
 	

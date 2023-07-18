@@ -47,3 +47,5 @@ testing.cpp
 # Miscellaneous
 .DS_Store
 CMakeLists.txt
+
+*.txt

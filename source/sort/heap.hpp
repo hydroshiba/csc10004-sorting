@@ -9,32 +9,27 @@
 - Worst Complexity: O(N log N)
 - Space Complexity: O(1)
 - Stability: No
+- Works with custom compare functions
 */
 
 #include <iterator>
 #include <utility>
 
-template <typename iter, class Compare>
-void heapify(iter begin, iter end, iter pos, Compare &func) {
-	iter cur = pos;
-	
+template <typename iter, class Compare, class CompareLoop>
+void heapify(iter begin, iter end, iter pos, Compare &func, CompareLoop &loop) {
+	size_t size = end - begin;
+	size_t cur = pos - begin;
+
 	while(true) {
-		size_t dist = cur - begin + 1;
+		size_t left = (cur << 1) + 1;
+		size_t right = left + 1;
 
-		iter left = cur + dist;
-		iter right = cur + dist + 1;
-
-		iter next;
-
-		if(left >= end || (right < end && func(*left, *right))) {
+		size_t next = left;
+		if(!loop(left, size) || (loop(right, size) && func(begin[left], begin[right])))
 			next = right;
-			func.count+=2;
-		}
-		else next = left;
 
-		if(next < end && func(*cur, *next)) {
-			func.count++;
-			std::swap(*cur, *next);
+		if(loop(next, size) && func(begin[cur], begin[next])) {
+			std::swap(begin[cur], begin[next]);
 			cur = next;
 			continue;
 		}
@@ -43,36 +38,35 @@ void heapify(iter begin, iter end, iter pos, Compare &func) {
 	}
 }
 
-template <typename iter, class Compare>
-void heapBuild(iter begin, iter end, Compare &func) {
-	intmax_t size = end - begin;
+template <typename iter, class Compare, class CompareLoop>
+void heapBuild(iter begin, iter end, Compare &func, CompareLoop &loop) {
+	size_t size = end - begin;
+	for(size_t i = size / 2; loop(i, size); --i)
+		heapify(begin, end, begin + i, func, loop);
+}
 
-	for(intmax_t i = size / 2; i > -1; --i) {
-		func.count++;
-		heapify(begin, end, begin + i, func);
+template <typename iter, class Compare, class CompareLoop>
+void heapSort(iter begin, iter end, Compare &func, CompareLoop &loop) {
+	size_t size = end - begin;
+	if(loop(size, 2)) return;
+
+	heapBuild(begin, end, func, loop);
+
+	for(size_t i = size - 1; loop(0, i); --i) {
+		std::swap(begin[0], begin[i]);
+		heapify(begin, begin + i, begin, func, loop);
 	}
 }
 
 template <typename iter, class Compare>
 void heapSort(iter begin, iter end, Compare &func) {
-	heapBuild(begin, end, func);
-
-	for(iter i = end - 1; i > begin; --i) {
-		func.count++;
-		std::swap(*begin, *i);
-		heapify(begin, i, begin, func);
-	}
-}
-
-template<class Compare>
-void heapSort(int* arr, int n, Compare &func) {
-	heapSort(arr, arr+n, func);
+	auto loop = std::less<size_t>();
+	heapSort(begin, end, func, loop);
 }
 
 template <typename iter>
 void heapSort(iter begin, iter end) {
 	using Type = typename std::iterator_traits<__typeof(iter)>::value_type;
-
 	auto func = std::less<Type>();
 	heapSort(begin, end, func);
 }

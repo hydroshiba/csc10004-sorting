@@ -1,75 +1,100 @@
 #ifndef SORT_FLASH_HPP
 #define SORT_FLASH_HPP
 
-#include <vector>
-#include <algorithm>
-#include <vector>
+/* ---------------------- FLASH SORT ---------------------- */
 
-template<class Compare>
-void flashSort(int* arr, int n, Compare &func) {
-    if (n <= 1) return;
+// Each partition is sorted using insertion sort in the original implementation.
+// However, in this implementation, each partition is sorted recursively using flash 
+// sort itself for experimental purposes. The sort also exits early if all elements
+// are equal (min = max).
 
-    int m = (int)(n * 0.43);
-    if (m <= 2) m = 2;
+/*
+- Average Complexity: O(N)
+- Best Complexity: O(N)
+- Worst Complexity: O(N^2)
+- Space Complexity: O(N) (Since m = 0.43N)
+- Stability: No
+- Does not work with custom compare functions
+*/
 
-    std::vector<int> L(m, 0);
+#include <iterator>
+#include <utility>
 
-    int max_val = arr[0], min_val = arr[0];
-    for (int i = 1; i < n; ++i) {
-        if (func(max_val, arr[i])) max_val = arr[i];
-        if (min_val > arr[i]) {
-            min_val = arr[i];
-            func.count++;
-        }
+template <typename iter, class Compare, class CompareLoop>
+void flashSort(iter begin, iter end, Compare &func, CompareLoop &loop) {
+    using Type = typename std::iterator_traits<__typeof(iter)>::value_type;
+
+    size_t size = end - begin;
+    if(loop(size, 2)) return;
+
+    size_t m = size * 0.43;
+    if(loop(m, 2)) m = 2;
+    size_t* bucket = new size_t[m]();
+
+    Type min = *begin;
+    Type max = *begin;
+
+    for(size_t i = 1; loop(i, size); ++i) {
+        if(func(begin[i], min)) min = begin[i];
+        if(func(max, begin[i])) max = begin[i];
     }
 
-    if (max_val == min_val) return;
-    func.count++;
-    auto calcK = [&](int x) {
-        return (long long)(m - 1) * (x - min_val) / (max_val - min_val);
+    if(!func(min, max) && !func(max, min)) return;
+
+    // Distributing elements into m buckets
+
+    Type range = max - min + 1;
+    auto index = [&](const Type &x) -> size_t {
+        return m * (x - min) / range;
     };
 
-    for (int i = 0; func(i, n); ++i) {
-        ++L[calcK(arr[i])];
-    }
-    for (int i = 1; func(i,m); ++i) {
-        L[i] += L[i - 1];
-    }
-    int count = 0;
-    int i = 0;
-    while (func(count, n)) {
-        int k = calcK(arr[i]);
-        while (i >= L[k]) {
-            k = calcK(arr[++i]);
-            func.count++;
-        }
-        int z = arr[i];
-        while (i != L[k]) {
-            func.count++;
-            k = calcK(z);
-            int y = arr[L[k] - 1];
-            arr[--L[k]] = z;
-            z = y;
-            ++count;
+    for(size_t i = 0; loop(i, size); ++i)
+        ++bucket[index(begin[i])];
+
+    for(size_t i = 1; loop(i, m); ++i)
+        bucket[i] += bucket[i - 1];
+
+    // Permuting elements
+
+    for(size_t i = 0; loop(i, size); ++i) {
+        size_t j = index(begin[i]);
+        if(!loop(i, bucket[j])) continue;
+        --bucket[j];
+
+        while(func(i, bucket[j]) || func(bucket[j], i)) {
+            std::swap(begin[i], begin[bucket[j]]);
+            j = index(begin[i]);
+            --bucket[j];
         }
     }
-    for (int k = 1; func(k, m); ++k) {
-        for (int i = L[k] - 2; i >= L[k-1]; --i) {
-            func.count++;
-            if (arr[i] > arr[i + 1]) {
-                func.count++;
-                int t = arr[i];
-                int j = i;
-                while (t > arr[j + 1]) {
-                    func.count++;
-                    arr[j] = arr[j + 1]; 
-                    ++j;
-                }
-                arr[j] = t;
-            }
+
+    delete[] bucket;
+
+    // Sorting the elements in each bucket
+
+    iter start = begin;
+
+    for(size_t i = 1; loop(i, size); ++i) {
+        if(loop(index(*start), index(begin[i]))) {
+            flashSort(start, begin + i, func, loop);
+            start = begin + i;
         }
     }
+
+    flashSort(start, end, func, loop);
 }
 
+template <typename iter, class Compare>
+void flashSort(iter begin, iter end, Compare &func) {
+    auto loop = std::less<size_t>();
+    flashSort(begin, end, func, loop);
+}
+
+template <typename iter>
+void flashSort(iter begin, iter end) {
+    using Type = typename std::iterator_traits<__typeof(iter)>::value_type;
+    auto func = std::less<Type>();
+    flashSort(begin, end, func);
+}
 
 #endif

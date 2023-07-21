@@ -41,7 +41,7 @@ build/
 bin/
 
 # Testing source files
-testing/
+testing*
 testing.cpp
 
 # Miscellaneous

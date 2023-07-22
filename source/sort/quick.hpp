@@ -14,6 +14,7 @@
 - Worst Complexity: O(N^2)
 - Space Complexity: O(log N)
 - Stability: No
+- Works with custom compare functions
 */
 
 #include <iterator>

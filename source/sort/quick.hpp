@@ -1,6 +1,21 @@
 #ifndef SORT_QUICK_HPP
 #define SORT_QUICK_HPP
 
+/* ---------------------- QUICK SORT ---------------------- */
+
+// Instead of the taught method of partitioning (also known as Lomuto's partition scheme), this
+// implementation uses Hoare's partition instead. This is because Lomuto's method degrades to
+// O(N^2) when the array elements are equal (the partition point is deviated to one side) while
+// Hoare's method does not. Hoare's method is also more efficient in general.
+
+/*
+- Average Complexity: O(N log N)
+- Best Complexity: O(N log N)
+- Worst Complexity: O(N^2)
+- Space Complexity: O(log N)
+- Stability: No
+*/
+
 #include <iterator>
 #include <utility>
 #include "../utility/random.hpp"

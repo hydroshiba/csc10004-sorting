@@ -43,7 +43,7 @@ size_t to_size(const std::string &s) {
 	return res;
 }
 
-int* getDataFromFile(const char* file, int &size) {
+int* importFile(const std::string &file, size_t &size) {
     ifstream ifile {file};
     if (!ifile) {
         cout << "Error: cannot open input file" << endl;
@@ -66,7 +66,7 @@ int* duplicateArray(int* arr, int n) {
     return newArr;
 }
 
-void exportFile(int* arr, int n, std::string name) {
+void exportFile(int* arr, int n, const std::string &name) {
     ofstream ofile {name};
     if (!ofile) {
         cout << "Error: cannot create export file" << endl;

@@ -77,7 +77,7 @@ namespace sort {
 	};
 
 	template <typename iter, class Compare, class CompareLoop>
-	void (*count[])(iter, iter, Compare, CompareLoop) = {
+	void (*count[])(iter, iter, Compare&, CompareLoop&) = {
 		error,
 		bubbleSort,
 		countingSort,

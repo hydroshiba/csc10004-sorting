@@ -78,8 +78,8 @@ int main(int argc, char* argv[]) {
                 }
 
                 std::cout << "Command 3" << std::endl;
-                std::cout << "Algorithm: " << sort::name[sort::id[argv[2]]] << std::endl;
-			    std::cout << "Input size: " << size << std::endl << std::endl;
+                std::cout << "Algorithm: " << sort::name[sort::id[argv[2]]] << std::endl << std::endl;
+			    std::cout << "Input size: " << size << std::endl;
 
                 int* arr = new int[size]();
 

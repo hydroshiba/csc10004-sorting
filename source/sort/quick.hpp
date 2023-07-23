@@ -66,6 +66,11 @@ void quickSort(iter begin, iter end, Compare &func) {
 	quickSort(begin, end, func, loop);
 }
 
+template<class Compare>
+void quickSort(int* arr, int n, Compare &func) {
+	quickSort(arr, arr+n, func);
+}
+
 template <typename iter>
 void quickSort(iter begin, iter end) {
 	using Type = typename std::iterator_traits<__typeof(iter)>::value_type;

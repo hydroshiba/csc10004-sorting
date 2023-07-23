@@ -61,6 +61,11 @@ void insertionSort(iter begin, iter end, Compare &func) {
     insertionSort(begin, end, func, loop);
 }
 
+template <class Compare>
+void insertionSort(int* arr, int n, Compare &func) {
+    insertionSort(arr, arr+n, func);
+}
+
 template <typename iter>
 void insertionSort(iter begin, iter end) {
     using Type = typename std::iterator_traits<iter>::value_type;

@@ -63,6 +63,11 @@ void countingSort(iter begin, iter end, Compare &func) {
     countingSort(begin, end, func, loop);
 }
 
+template<class Compare>
+void countingSort(int* arr, int n, Compare &func) {
+    countingSort(arr, arr+n, func);
+}
+
 template <typename iter>
 void countingSort(iter begin, iter end) {
     using Type = typename std::iterator_traits<__typeof(iter)>::value_type;

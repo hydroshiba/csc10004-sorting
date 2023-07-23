@@ -34,32 +34,4 @@ void shakerSort(int *a, int n, Compare &func)
 }
 
 
-// void shakerSort(int* a, int n)
-// {
-// 	int Left = 0;
-// 	int Right = n - 1;
-// 	int k = 0;
-// 	while (Left < Right)
-// 	{
-// 		for (int i = Left; i < Right; i++)
-// 		{
-// 			if (a[i] > a[i + 1])
-// 			{
-// 				std::swap(a[i], a[i + 1]);
-// 				k = i;
-// 			}
-// 		}
-// 		Right = k;
-// 		for (int i = Right; i > Left; i--)
-// 		{
-// 			if (a[i] < a[i - 1])
-// 			{
-// 				std::swap(a[i], a[i - 1]);
-// 				k = i;
-// 			}
-// 		}
-// 		Left = k;
-// 	}
-// }
-
 #endif

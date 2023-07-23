@@ -78,6 +78,11 @@ void mergeSort(iter begin, iter end, Compare &func) {
     mergeSort(begin, end, func, loop);
 }
 
+template<class Compare>
+void mergeSort(int* arr, int n, Compare &func) {
+    mergeSort(arr, arr+n, func);
+}
+
 template <typename iter>
 void mergeSort(iter begin, iter end) {
     using Type = typename std::iterator_traits<__typeof(iter)>::value_type;

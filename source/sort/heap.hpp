@@ -64,6 +64,11 @@ void heapSort(iter begin, iter end, Compare &func) {
 	heapSort(begin, end, func, loop);
 }
 
+template<class Compare>
+void heapSort(int* arr, int n, Compare &func) {
+	heapSort(arr, arr+n, func);
+}
+
 template <typename iter>
 void heapSort(iter begin, iter end) {
 	using Type = typename std::iterator_traits<__typeof(iter)>::value_type;

@@ -1,18 +1,9 @@
-// Command: .\main.exe -a [sort-algo] [input size] [input-type] [output-parameter]
-// See sortingAlgo map for [sort-algo]
-// [input size] receive an integer > 0
-// see inputType map for [input-type] 
-// see outParam map for [output-parameter]
-
 #include <iostream>
 #include <iomanip>
-#include <vector>
-#include <chrono>
-#include <unordered_map>
 #include <cstring>
 
-#include "sort.hpp"
-#include "utility.hpp"
+#include "source/sort.hpp"
+#include "source/utility.hpp"
 
 int main(int argc, char* argv[]) {
     if(argc < 2) {

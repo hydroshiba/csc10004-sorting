@@ -63,7 +63,7 @@ void countingSort(iter begin, iter end, Compare &func) {
     countingSort(begin, end, func, loop);
 }
 
-template<class Compare>
+template <class Compare>
 void countingSort(int* arr, int n, Compare &func) {
     countingSort(arr, arr+n, func);
 }

@@ -66,7 +66,7 @@ void quickSort(iter begin, iter end, Compare &func) {
 	quickSort(begin, end, func, loop);
 }
 
-template<class Compare>
+template <class Compare>
 void quickSort(int* arr, int n, Compare &func) {
 	quickSort(arr, arr+n, func);
 }

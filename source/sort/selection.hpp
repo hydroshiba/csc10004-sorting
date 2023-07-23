@@ -14,43 +14,34 @@
 #include <iterator>
 #include <utility>
 
-// template <typename iter, class Compare>
-// void selectionSort(iter begin, iter end, Compare &func) {
-//     for(iter i = begin; i != end; ++i) {
-//         iter min = i;
+template <typename iter, class Compare, class CompareLoop>
+void selectionSort(iter begin, iter end, Compare &func, CompareLoop &loop) {
+    size_t size = end - begin;
 
-//         for(iter j = i + 1; j != end; ++j) {
-//             if (func(*j, *min)) {
-//                 min = j;
-//             }
-//         }
+    for(size_t i = 0; loop(i, size); ++i) {
+        iter min = begin + i;
 
-//         std::swap(*i, *min);
-//     }
-// }
-
-template <class Compare>
-void selectionSort(int *arr, int n, Compare &func) {
-    for(int i = 0; func(i, n); ++i) {
-        int minIdx = i;
-
-        for(int j = i + 1; func(j, n); ++j) {
-            if (func(arr[j], arr[minIdx])) {
-                minIdx = j;
+        for(size_t j = i + 1; loop(j, size); ++j) {
+            if (func(begin[j], *min)) {
+                min = begin + j;
             }
         }
 
-        std::swap(arr[i], arr[minIdx]);
+        std::swap(begin[i], *min);
     }
+}
+
+template <typename iter, class Compare>
+void selectionSort(iter begin, iter end, Compare &func) {
+    auto loop = std::less<size_t>();
+    selectionSort(begin, end, func, loop);
 }
 
 template <typename iter>
 void selectionSort(iter begin, iter end) {
 	using Type = typename std::iterator_traits<__typeof(iter)>::value_type;
-
 	auto func = std::less<Type>();
 	selectionSort(begin, end, func);
 }
-
 
 #endif

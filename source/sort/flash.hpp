@@ -90,7 +90,7 @@ void flashSort(iter begin, iter end, Compare &func) {
     flashSort(begin, end, func, loop);
 }
 
-template<class Compare>
+template <class Compare>
 void flashSort(int* arr, int n, Compare &func) {
     flashSort(arr, arr+n, func);
 }

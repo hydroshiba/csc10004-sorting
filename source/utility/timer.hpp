@@ -11,10 +11,10 @@ struct Timer {
 		point = std::chrono::high_resolution_clock::now();
 	}
 
-	int64_t get() {
+	uintmax_t get() {
 		auto current = std::chrono::high_resolution_clock::now();
-		int64_t milli =  std::chrono::duration_cast<std::chrono::milliseconds>(current - point).count();
-		return milli;
+		uintmax_t micro =  std::chrono::duration_cast<std::chrono::microseconds>(current - point).count();
+		return micro;
 	}
 };
 

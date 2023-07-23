@@ -56,8 +56,8 @@ int main(int argc, char* argv[]) {
                 runtime = std::max(uintmax_t(1), timer.get());
             }
 
-			std::cout << "Running time (if required): " << (runtime ? std::to_string(runtime) : "") << std::endl;
-			std::cout << "Comparisons (if required): " << (comparison ? std::to_string(comparison) : "") << std::endl;
+			std::cout << "Running time: " << (runtime ? std::to_string(runtime) : "") << std::endl;
+			std::cout << "Comparisons: " << (comparison ? std::to_string(comparison) : "") << std::endl;
 
             exportFile(arr, size, "output.txt");
             delete[] arr;
@@ -111,8 +111,8 @@ int main(int argc, char* argv[]) {
                         runtime = std::max(uintmax_t(1), timer.get());
                     }
 
-                    std::cout << "Running time (if required): " << (runtime ? std::to_string(runtime) : "") << std::endl;
-                    std::cout << "Comparisons (if required): " << (comparison ? std::to_string(comparison) : "") << std::endl;
+                    std::cout << "Running time: " << (runtime ? std::to_string(runtime) : "") << std::endl;
+                    std::cout << "Comparisons: " << (comparison ? std::to_string(comparison) : "") << std::endl;
                     std::cout << std::endl;
                 }
 
@@ -162,8 +162,8 @@ int main(int argc, char* argv[]) {
                     runtime = std::max(uintmax_t(1), timer.get());
                 }
 
-                std::cout << "Running time (if required): " << (runtime ? std::to_string(runtime) : "") << std::endl;
-                std::cout << "Comparisons (if required): " << (comparison ? std::to_string(comparison) : "") << std::endl;
+                std::cout << "Running time: " << (runtime ? std::to_string(runtime) : "") << std::endl;
+                std::cout << "Comparisons: " << (comparison ? std::to_string(comparison) : "") << std::endl;
 
                 exportFile(arr, size, "output.txt");
                 delete[] arr;

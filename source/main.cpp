@@ -11,277 +11,303 @@
 #include <unordered_map>
 #include <cstring>
 
-// Utilities
-#include "utility/comparator.hpp"
-#include "utility/random.hpp"
-#include "utility/timer.hpp"
-#include "utility/DataGenerator.cpp"
-
-// Sorting algorithms
-#include "sort/heap.hpp"
-#include "sort/bubble.hpp"
-#include "sort/shaker.hpp"
-#include "sort/insertion.hpp"
-#include "sort/lis.hpp"
-#include "sort/merge.hpp"
-#include "sort/quick.hpp"
-#include "sort/selection.hpp"
-#include "sort/shell.hpp"
-#include "sort/counting.hpp"
-#include "sort/flash.hpp"
-#include "sort/radix.hpp"
-
-typedef void (*sort_ptr)(int*, int, Comparator<int>&);
-sort_ptr sortFunc[] = {selectionSort, insertionSort, bubbleSort, heapSort, mergeSort, quickSort, radixSort, shakerSort, shellSort, countingSort, flashSort};
-
-const char* algoName[11] = {"Selection Sort", "Insertion Sort", "Bubble Sort", "Heap Sort", "Merge Sort", "Quick Sort", "Radix Sort", "Shaker Sort", "Shell Sort", "Counting Sort", "Flash Sort"};
-
-unordered_map<string, int> sortingAlgo = {
-    {"selection-sort", 0}, 
-    {"insertion-sort", 1}, 
-    {"bubble-sort", 2}, 
-    {"heap-sort", 3}, 
-    {"merge-sort", 4}, 
-    {"quick-sort", 5}, 
-    {"radix-sort", 6}, 
-    {"shaker-sort", 7}, 
-    {"shell-sort", 8}, 
-    {"counting-sort", 9}, 
-    {"flash-sort", 10}
-};
-
-unordered_map<string, int> inputType = {
-    {"-rand", 0}, 
-    {"-sorted", 2}, 
-    {"-rev", 3}, 
-    {"-nsorted", 1}
-};
-
-const char* typeName[] = {"Randomized data", "Nearly sorted data", "Sorted data", "Reverse sorted data"};
-
-unordered_map<string, int> outParams = {
-    {"-time", 0}, 
-    {"-comp", 1}, 
-    {"-both", 2}
-};
-
-int getAlgo(const char* algo) {
-    auto it = sortingAlgo.find(algo);
-    return (it != sortingAlgo.end()) ? it->second : -1;
-}
-
-int getType(const char* type) {
-    auto it = inputType.find(type);
-    return (it != inputType.end()) ? it->second : -1;
-}
-
-int getParam(const char* param) {
-    auto it = outParams.find(param);
-    return (it != outParams.end()) ? it->second : -1;
-}
-
-int* getDataFromFile(const char* file, int &size) {
-    ifstream ifile {file};
-    if (!ifile) {
-        cout << "Error: cannot open input file" << endl;
-        return nullptr;
-    }
-    ifile >> size;
-    if (size == 0) return nullptr;
-    int* arr = new int[size];
-    int cnt = 0;
-    while (ifile >> arr[cnt++]) {}
-    ifile.close();
-    return arr;
-}
-
-int* duplicateArray(int* arr, int n) {
-    int* newArr = new int[n];
-    for (int i = 0; i < n; i++) {
-        newArr[i] = arr[i];
-    }
-    return newArr;
-}
-
-void exportFile(int* arr, int n, string name) {
-    ofstream ofile {name};
-    if (!ofile) {
-        cout << "Error: cannot create export file" << endl;
-        return;
-    }
-    ofile << n << endl;
-    for (int i = 0; i < n; i++) {
-        ofile << arr[i] << " ";
-    }
-    ofile.close();
-}
-
-void saveResult(const string &fileName, const uintmax_t &comparison, const uint64_t &time, const int &algo, const int &type, const int &size) {
-    
-}
+#include "sort.hpp"
+#include "utility.hpp"
 
 int main(int argc, char* argv[]) {
-    if (strcmp(argv[1], "-a") == 0) {
-        if (argc == 6) {
-            int algo = getAlgo(argv[2]);
-            int type = getType(argv[4]);
-            int param = getParam(argv[5]);
-            int size = stoi(argv[3]);
-            if (algo == -1 || type == -1 || param == -1 || size <= 0) {
-				cout << "Error: invalid parameter(s)" << endl;
-				return 0;
-			}
-			cout << "Algorithm: " << algoName[algo] << endl;
-			cout << "Input size: " << size << endl;
-			cout << "Input order: " << typeName[type] << endl;
-			cout << "-----------------------------" << endl;
-			int* arr = new int[size];
-			Timer timer;
-			GenerateData(arr, size, type);
-            exportFile(arr, size, "input.txt");
-			Comparator<int> func;   
-			timer.start();
-			sortFunc[algo](arr, size, func);
-			int64_t totalTime = timer.get();
-            cout << "-----------------------------" << endl;
-			cout << "Running time (if required): " << ((param==0 || param==2) ? to_string(totalTime):"") << endl;
-			cout << "Comparisons (if required): " << ((param==1 || param==2) ? to_string(func.count):"") << endl;
-            exportFile(arr, size, "output.txt");
-            delete [] arr;
-			return 2;
-        }
-        else if (argc == 5) {
-            istringstream iss (argv[3]);
-            bool isNum = false;
-            int test;
-            if (iss >> test) {
-                isNum = true;
+    if(argc < 2) {
+        std::cout << "Missing parameters" << std::endl;
+        return 0;
+    }
+
+    if(strcmp(argv[1], "-a") == 0) {
+        std::cout << "ALGORITHM MODE" << std::endl;
+
+        if(argc == 6) {
+            // Command 2
+            // main.exe -a [Algorithm] [Input size] [Input order] [Output parameter]
+            
+            size_t size = to_size(argv[3]);
+            
+            if(sort::id[argv[2]] * size * order::id[argv[4]] * param::id[argv[5]] == 0) {
+                std::cout << "Invalid parameters" << endl;
+                return 0;
             }
-            iss.clear();
-            if (isNum) {
-                int algo = getAlgo(argv[2]);
-                int param = getParam(argv[4]);
-                int size = stoi(argv[3]);
-                if (algo == -1 || param == -1 || size <= 0) {
-                    cout << "Error: invalid parameter(s)" << endl;
+
+            std::cout << "Command 2" << std::endl;
+			std::cout << "Algorithm: " << sort::name[sort::id[argv[2]]] << std::endl;
+			std::cout << "Input size: " << size << std::endl;
+			std::cout << "Input order: " << order::name[order::id[argv[4]]] << std::endl;
+			std::cout << "-----------------------------" << std::endl;
+
+			int* arr = new int[size]();
+			GenerateData(arr, size, order::id[argv[4]] - 1);
+            exportFile(arr, size, "input.txt");
+
+            int param = param::id[argv[5]];
+            uintmax_t runtime, comparison = 0;
+
+            if(param > 1) {
+                Counter<int> func;
+                Counter<size_t> loop;
+                
+                int* dup = duplicateArray(arr, size);
+                sort::count<int*, Counter<int>, Counter<size_t>>[sort::id[argv[2]]](dup, dup + size, func, loop);
+
+                comparison = func.count + loop.count;
+                delete[] dup;
+            }
+
+            if(param != 2) {
+                Timer timer;
+                timer.start();
+                sort::func<int*>[sort::id[argv[2]]](arr, arr + size);
+                runtime = std::max(uintmax_t(1), timer.get());
+            }
+
+			std::cout << "Running time (if required): " << (runtime ? std::to_string(runtime) : "") << std::endl;
+			std::cout << "Comparisons (if required): " << (comparison ? std::to_string(comparison) : "") << std::endl;
+
+            exportFile(arr, size, "output.txt");
+            delete[] arr;
+
+            return 0;
+        }
+        
+        if(argc == 5) {
+            size_t size = to_size(argv[3]);
+
+            if(size) {
+                // Command 3
+                // main.exe -a [Algorithm] [Input size] [Output parameter]
+
+                if(sort::id[argv[2]] * size * param::id[argv[4]] == 0) {
+                    std::cout << "Invalid parameters" << endl;
                     return 0;
                 }
-                cout << "Algorithm: " << algoName[algo] << endl;
-			    cout << "Input size: " << size << endl;
-			    for (int i = 0; i < 4; i++) {
-                    cout << "\nInput order: " << typeName[i] << endl;
-                    cout << "-----------------------------" << endl;
-                    int* arr = new int[size];
-                    Timer timer;
-                    GenerateData(arr, size, i);
-                    Comparator<int> func;
-                    timer.start();
-                    sortFunc[algo](arr, size, func);
-                    int64_t totalTime = timer.get();
-                    cout << "Running time (if required): " << ((param==0 || param==2) ? to_string(totalTime):"") << endl;
-                    cout << "Comparisons (if required): " << ((param==1 || param==2) ? to_string(func.count):"") << endl;
-                    exportFile(arr, size, "input_"+to_string(i+1)+".txt");
-                    delete [] arr;
+
+                std::cout << "Command 3" << std::endl;
+                std::cout << "Algorithm: " << sort::name[sort::id[argv[2]]] << std::endl;
+			    std::cout << "Input size: " << size << std::endl << std::endl;
+
+                int* arr = new int[size]();
+
+                for(int i = 1; i <= 4; ++i) {
+                    std::cout << "Input order: " << order::name[i] << std::endl;
+                    std::cout << "-----------------------------" << std::endl;
+
+                    GenerateData(arr, size, i - 1);
+                    exportFile(arr, size, "input_" +  std::to_string(i) + ".txt");
+
+                    int param = param::id[argv[4]];
+                    uintmax_t runtime, comparison = 0;
+
+                    if(param > 1) {
+                        Counter<int> func;
+                        Counter<size_t> loop;
+                        
+                        int* dup = duplicateArray(arr, size);
+                        sort::count<int*, Counter<int>, Counter<size_t>>[sort::id[argv[2]]](dup, dup + size, func, loop);
+
+                        comparison = func.count + loop.count;
+                        delete[] dup;
+                    }
+
+                    if(param != 2) {
+                        Timer timer;
+                        timer.start();
+                        sort::func<int*>[sort::id[argv[2]]](arr, arr + size);
+                        runtime = std::max(uintmax_t(1), timer.get());
+                    }
+
+                    std::cout << "Running time (if required): " << (runtime ? std::to_string(runtime) : "") << std::endl;
+                    std::cout << "Comparisons (if required): " << (comparison ? std::to_string(comparison) : "") << std::endl;
+                    std::cout << std::endl;
                 }
-                return 3;
+
+                delete[] arr;
+                return 0;
             }
-            int size{};
-            int* arr = getDataFromFile(argv[3], size);
-            if (size == 0) {
-                cout << "Error: input file has no data" << endl;
-                return -1;
+
+            else {
+                // Command 1
+                // main.exe -a [Algorithm] [Input file] [Output parameter]
+
+                if(sort::id[argv[2]] * param::id[argv[4]] == 0) {
+                    std::cout << "Invalid parameters" << endl;
+                    return 0;
+                }
+
+                int* arr = importFile(argv[3], size);
+                if(arr == nullptr) {
+                    std::cout << "Invalid file" << std::endl;
+                    return 0;
+                }
+
+                std::cout << "Command 1" << std::endl;
+                std::cout << "Algorithm: " << sort::name[sort::id[argv[2]]] << std::endl;
+                std::cout << "Input file: " << argv[3] << std::endl;
+                std::cout << "Input size: " << size << std::endl;
+                std::cout << "-----------------------------" << std::endl;
+
+                int param = param::id[argv[4]];
+                uintmax_t runtime, comparison = 0;
+
+                if(param > 1) {
+                    Counter<int> func;
+                    Counter<size_t> loop;
+                    
+                    int* dup = duplicateArray(arr, size);
+                    sort::count<int*, Counter<int>, Counter<size_t>>[sort::id[argv[2]]](dup, dup + size, func, loop);
+
+                    comparison = func.count + loop.count;
+                    delete[] dup;
+                }
+
+                if(param != 2) {
+                    Timer timer;
+                    timer.start();
+                    sort::func<int*>[sort::id[argv[2]]](arr, arr + size);
+                    runtime = std::max(uintmax_t(1), timer.get());
+                }
+
+                std::cout << "Running time (if required): " << (runtime ? std::to_string(runtime) : "") << std::endl;
+                std::cout << "Comparisons (if required): " << (comparison ? std::to_string(comparison) : "") << std::endl;
+
+                exportFile(arr, size, "output.txt");
+                delete[] arr;
+
+                return 0;
             }
-            int algo = getAlgo(argv[2]);
-            int param = getParam(argv[4]);
-            if (algo == -1 || param == -1) {
-                cout << "Error: invalid parameter(s)" << endl;
-                return -1;
-            }
-            cout << "Algorithm: " << algoName[algo] << endl;
-            cout << "Input file: " << argv[3] << endl;
-            cout << "Input size: " << size << endl;
-            Timer timer;
-            Comparator<int> func;
-            timer.start();
-            sortFunc[algo](arr, size, func);
-            int64_t totalTime = timer.get();
-            cout << "-----------------------------" << endl;
-            cout << "Running time (if required): " << ((param==0 || param==2) ? to_string(totalTime):"") << endl;
-            cout << "Comparisons (if required): " << ((param==1 || param==2) ? to_string(func.count):"") << endl;
-            exportFile(arr, size, "output.txt");
-            delete [] arr;
-            return 1;
         }
-        else {
-            cout << "Error: invalid parameter(s)" << endl;
-        }
+
+        std::cout << "Missing parameters" << std::endl;
+        return 0;
     }
     else if (strcmp(argv[1], "-c") == 0) {
-        if (argc == 5) {
-            int algo1 = getAlgo(argv[2]);
-            int algo2 = getAlgo(argv[3]);
-            int size{};
-            int* arr1 = getDataFromFile(argv[4], size);
+        std::cout << "COMPARISON MODE" << std::endl;
+
+        if(argc == 5) {
+            // Command 4
+            // main.exe -c [Algorithm 1] [Algorithm 2] [Input file]
+
+            size_t size = 0;
+
+            if(sort::id[argv[2]] * sort::id[argv[3]] == 0) {
+                std::cout << "Invalid parameters" << endl;
+                return 0;
+            }
+
+            int* arr1 = importFile(argv[4], size);
+            if(arr1 == nullptr) {
+                std::cout << "Invalid file" << std::endl;
+                return 0;
+            }
             int* arr2 = duplicateArray(arr1, size);
-            if (size == 0) {
-                cout << "Error: input file has no data" << endl;
-                return -1;
-            }
-            if (algo1 == -1 || algo2 == -1) {
-                cout << "Error: invalid parameter(s)" << endl;
-                return -1;
-            }
-            cout << "Algorithm: " << algoName[algo1] << " | " << algoName[2] << endl;
-            cout << "Input file: " << argv[4] << endl;
-            cout << "Input size: " << size << endl; 
-            cout << "-----------------------------" << endl;
+
+            std::cout << "Command 4" << std::endl;
+            std::cout << "Algorithm: " << sort::name[sort::id[argv[2]]] << " | " << sort::name[sort::id[argv[3]]] << std::endl;
+            std::cout << "Input file: " << argv[4] << std::endl;
+            std::cout << "Input size: " << size << std::endl;
+            std::cout << "-----------------------------" << std::endl;
+
+            Counter<int> func1, func2;
+            Counter<size_t> loop1, loop2;
+
+            int* dup1 = duplicateArray(arr1, size);
+            int* dup2 = duplicateArray(arr1, size);
+
+            sort::count<int*, Counter<int>, Counter<size_t>>[sort::id[argv[2]]](dup1, dup1 + size, func1, loop1);
+            sort::count<int*, Counter<int>, Counter<size_t>>[sort::id[argv[3]]](dup2, dup2 + size, func2, loop2);
+
+            uintmax_t comparison1 = func1.count + loop1.count;
+            uintmax_t comparison2 = func2.count + loop2.count;
+
             Timer timer1, timer2;
-            Comparator<int> func1, func2;
+            uintmax_t runtime1, runtime2;
+
             timer1.start();
-            sortFunc[algo1](arr1, size, func1);
-            uint64_t time1 = timer1.get();
+            sort::func<int*>[sort::id[argv[2]]](arr1, arr1 + size);
+            runtime1 = std::max(uintmax_t(1), timer1.get());
+
             timer2.start();
-            sortFunc[algo2](arr2, size, func2);
-            uint64_t time2 = timer2.get();
-            cout << "Running time: " << time1 << " | " << time2 << endl;
-            cout << "Comparisons: " << func1.count << " | " << func2.count << endl;
-            return 4;
+            sort::func<int*>[sort::id[argv[3]]](arr2, arr2 + size);
+            runtime2 = std::max(uintmax_t(1), timer2.get());
+
+            std::cout << "Running time: " << runtime1 << " | " << runtime2 << std::endl;
+            std::cout << "Comparisons: " << comparison1 << " | " << comparison2 << std::endl;
+
+            delete[] arr1;
+            delete[] arr2;
+
+            delete[] dup1;
+            delete[] dup2;
+
+            return 0;
         }
-        else if (argc == 6) {
-            int algo1 = getAlgo(argv[2]);
-            int algo2 = getAlgo(argv[3]);
-            int size = stoi(argv[4]);
-            int type = getType(argv[5]);
-            if (algo1 == -1 || algo2 == -1 || size <= 0 || type == -1) {
-                cout << "Error: invalid parameter(s)" << endl;
-                return -1;
+        
+        if(argc == 6) {
+            // Command 5
+            // main.exe -c [Algorithm 1] [Algorithm 2] [Input size] [Input order]
+
+            size_t size = to_size(argv[4]);
+
+            if(sort::id[argv[2]] * sort::id[argv[3]] * size * order::id[argv[5]] == 0) {
+                std::cout << "Invalid parameters" << endl;
+                return 0;
             }
+
+            std::cout << "Command 5" << std::endl;
+            std::cout << "Algorithm: " << sort::name[sort::id[argv[2]]] << " | " << sort::name[sort::id[argv[3]]] << std::endl;
+            std::cout << "Input size: " << size << std::endl;
+            std::cout << "Input order: " << order::name[order::id[argv[5]]] << std::endl;
+            std::cout << "-----------------------------" << std::endl;
+
             int* arr1 = new int[size];
-            GenerateData(arr1, size, type);
-            exportFile(arr1, size, "input.txt");
+            GenerateData(arr1, size, order::id[argv[5]] - 1);
             int* arr2 = duplicateArray(arr1, size);
-            cout << "Algorithm: " << algoName[algo1] << " | " << algoName[2] << endl;
-            cout << "Input file: " << argv[4] << endl;
-            cout << "Input order: " << typeName[type] << endl;
-            cout << "-----------------------------" << endl;
+
+            exportFile(arr1, size, "input.txt");
+
+            Counter<int> func1, func2;
+            Counter<size_t> loop1, loop2;
+
+            int* dup1 = duplicateArray(arr1, size);
+            int* dup2 = duplicateArray(arr1, size);
+
+            sort::count<int*, Counter<int>, Counter<size_t>>[sort::id[argv[2]]](dup1, dup1 + size, func1, loop1);
+            sort::count<int*, Counter<int>, Counter<size_t>>[sort::id[argv[3]]](dup2, dup2 + size, func2, loop2);
+
+            uintmax_t comparison1 = func1.count + loop1.count;
+            uintmax_t comparison2 = func2.count + loop2.count;
+
             Timer timer1, timer2;
-            Comparator<int> func1, func2;
+            uintmax_t runtime1, runtime2;
+
             timer1.start();
-            sortFunc[algo1](arr1, size, func1);
-            uint64_t time1 = timer1.get();
+            sort::func<int*>[sort::id[argv[2]]](arr1, arr1 + size);
+            runtime1 = std::max(uintmax_t(1), timer1.get());
+
             timer2.start();
-            sortFunc[algo2](arr2, size, func2);
-            uint64_t time2 = timer2.get();
-            cout << "Running time: " << time1 << " | " << time2 << endl;
-            cout << "Comparisons: " << func1.count << " | " << func2.count << endl;
-            return 5;
+            sort::func<int*>[sort::id[argv[3]]](arr2, arr2 + size);
+            runtime2 = std::max(uintmax_t(1), timer2.get());
+
+            std::cout << "Running time: " << runtime1 << " | " << runtime2 << std::endl;
+            std::cout << "Comparisons: " << comparison1 << " | " << comparison2 << std::endl;
+
+            delete[] arr1;
+            delete[] arr2;
+
+            delete[] dup1;
+            delete[] dup2;
+
+            return 0;
         }
-        else {
-            cout << "Error: invalid parameter(s)" << endl;
-        }
+        
+        std::cout << "Missing parameters" << std::endl;
+        return 0;
     }
-    else {
-        cout << "Error: invalid parameter(s)" << endl;
-        return -1;
-    }
+    
+    std::cout << "Invalid" << std::endl;
+    return 0;
 }

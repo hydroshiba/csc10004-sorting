@@ -144,7 +144,7 @@ void saveResult(int sort, int order, const std::string results) {
 	}
 
 	std::string path = "files" + (slash + sortName + slash);
-    system(("mkdir -p " + ("'" + path + "'")).c_str());
+    system(("mkdir -p " + path).c_str());
 
 	std::string file = path + orderName + ".txt";
 	std::ofstream ofs(file);

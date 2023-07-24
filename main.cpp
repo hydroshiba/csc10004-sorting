@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
             size_t size = to_size(argv[3]);
             
             if(sort::id[argv[2]] * size * order::id[argv[4]] * param::id[argv[5]] == 0) {
-                std::cout << "Invalid parameters" << endl;
+                std::cout << "Invalid parameters" << std::endl;
                 return 0;
             }
 
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
                 // main.exe -a [Algorithm] [Input size] [Output parameter]
 
                 if(sort::id[argv[2]] * size * param::id[argv[4]] == 0) {
-                    std::cout << "Invalid parameters" << endl;
+                    std::cout << "Invalid parameters" << std::endl;
                     return 0;
                 }
 
@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
                 // main.exe -a [Algorithm] [Input file] [Output parameter]
 
                 if(sort::id[argv[2]] * param::id[argv[4]] == 0) {
-                    std::cout << "Invalid parameters" << endl;
+                    std::cout << "Invalid parameters" << std::endl;
                     return 0;
                 }
 
@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) {
             size_t size = 0;
 
             if(sort::id[argv[2]] * sort::id[argv[3]] == 0) {
-                std::cout << "Invalid parameters" << endl;
+                std::cout << "Invalid parameters" << std::endl;
                 return 0;
             }
 
@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) {
             size_t size = to_size(argv[4]);
 
             if(sort::id[argv[2]] * sort::id[argv[3]] * size * order::id[argv[5]] == 0) {
-                std::cout << "Invalid parameters" << endl;
+                std::cout << "Invalid parameters" << std::endl;
                 return 0;
             }
 

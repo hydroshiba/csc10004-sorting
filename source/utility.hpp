@@ -6,6 +6,8 @@
 #include "utility/timer.hpp"
 #include "utility/DataGenerator.cpp"
 
+#include "sort.hpp"
+
 namespace order {
 	std::unordered_map<std::string, int> id = {
 		{"-rand", 1}, 
@@ -45,7 +47,7 @@ size_t to_size(const std::string &s) {
 
 int* importFile(const std::string &file, size_t &size) {
     std::string path = "files/" + file;
-    ifstream ifs(path);
+    std::ifstream ifs(path);
     if(!ifs) return nullptr;
 
     ifs >> size;
@@ -70,7 +72,7 @@ int* duplicateArray(int* arr, int size) {
 void exportFile(const std::string &file, int* arr, int size) {
     system("mkdir -p files");
     std::string path = "files/" + file;
-    ofstream ofs(path);
+    std::ofstream ofs(path);
 
     if(!ofs) {
         std::cout << "Warning: Cannot create export file" << std::endl;
@@ -147,7 +149,7 @@ void compareSort(int* arr, int size, int sortA, int sortB) {
     delete[] dupB;
 }
 
-void saveResult(const string &fileName, const uintmax_t &comparison, const uint64_t &time, const int &algo, const int &type, const int &size) {
+void saveResult(const std::string &fileName, const uintmax_t &comparison, const uint64_t &time, const int &algo, const int &type, const int &size) {
     
 }
 

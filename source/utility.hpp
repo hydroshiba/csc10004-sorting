@@ -79,6 +79,68 @@ void exportFile(int* arr, int n, const std::string &name) {
     ofile.close();
 }
 
+uintmax_t timeSort(int* arr, int size, int sort) {
+    Timer timer;
+    
+    timer.start();
+    sort::func<int*>[sort](arr, arr + size);
+    uintmax_t runtime = (timer.get());
+
+    return runtime;
+}
+
+uintmax_t countSort(int* arr, int size, int sort) {
+    Counter<int> func;
+    Counter<size_t> loop;
+    
+    sort::count<int*, Counter<int>, Counter<size_t>>[sort](arr, arr + size, func, loop);
+    uintmax_t comparison = func.count + loop.count;
+
+    return comparison;
+}
+
+void measureSort(int* arr, int size, int sort, int param) {
+    uintmax_t runtime, comparison;
+
+    if(param != 2) {
+        int* dup = duplicateArray(arr, size);
+        runtime = timeSort(dup, size, sort);
+        delete[] dup;
+    }
+    
+    std::cout << "Running time: " << ((param != 2) ? std::to_string(runtime) : "") << std::endl;
+
+    if(param > 1) comparison = countSort(arr, size, sort);
+    std::cout << "Comparisons: " << (comparison ? std::to_string(comparison) : "") << std::endl;
+
+    std::cout << std::endl;
+}
+
+void compareSort(int* arr, int size, int sortA, int sortB) {
+    uintmax_t runtimeA, runtimeB;
+    uintmax_t comparisonA, comparisonB;
+
+    int* dupA = duplicateArray(arr, size);
+    int* dupB = duplicateArray(arr, size);
+
+    runtimeA = timeSort(dupA, size, sortA);
+    std::cout << "Running time: " << runtimeA << " | ";
+    
+    runtimeB = timeSort(dupB, size, sortB);
+    std::cout << runtimeB << std::endl;
+
+    dupA = duplicateArray(arr, size);
+
+    comparisonA = countSort(dupA, size, sortA);
+    std::cout << "Comparisons: " << comparisonA << " | ";
+
+    comparisonB = countSort(arr, size, sortB);
+    std::cout << comparisonB << std::endl;
+        
+    delete[] dupA;
+    delete[] dupB;
+}
+
 void saveResult(const string &fileName, const uintmax_t &comparison, const uint64_t &time, const int &algo, const int &type, const int &size) {
     
 }

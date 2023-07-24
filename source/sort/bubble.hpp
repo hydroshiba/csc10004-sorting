@@ -43,11 +43,6 @@ void bubbleSort(iter begin, iter end, Compare &func) {
     bubbleSort(begin, end, func, loop);
 }
 
-template <class Compare>
-void bubbleSort(int* arr, int n, Compare &func) {
-    bubbleSort(arr, arr+n, func);
-}
-
 template <typename iter>
 void bubbleSort(iter begin, iter end) {
     using Type = typename std::iterator_traits<__typeof(iter)>::value_type;

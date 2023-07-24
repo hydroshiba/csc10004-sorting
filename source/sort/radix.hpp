@@ -61,11 +61,6 @@ void radixSort(iter begin, iter end, Compare &func) {
 	radixSort(begin, end, func, loop);
 }
 
-template <class Compare>
-void radixSort(int* arr, int n, Compare &func) {
-	radixSort(arr, arr+n, func);
-}
-
 template <typename iter>
 void radixSort(iter begin, iter end) {
 	using Type = typename std::iterator_traits<__typeof(iter)>::value_type;

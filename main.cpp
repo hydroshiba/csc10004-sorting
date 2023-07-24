@@ -173,6 +173,6 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     
-    std::cout << "Invalid" << std::endl;
+    std::cout << "Invalid parameters" << std::endl;
     return 0;
 }

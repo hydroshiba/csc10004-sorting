@@ -1,3 +1,9 @@
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+	#define slash "\\"
+#else
+	#define slash "/"
+#endif
+
 #ifndef UTIL_HPP
 #define UTIL_HPP
 
@@ -5,6 +11,7 @@
 #include "utility/random.hpp"
 #include "utility/timer.hpp"
 #include "utility/DataGenerator.cpp"
+
 
 namespace order {
 	std::unordered_map<std::string, int> id = {

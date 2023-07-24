@@ -17,7 +17,7 @@ size_t toSize(const std::string &s) {
 }
 
 int* importFile(const std::string &file, size_t &size) {
-    std::string path = "files/" + file;
+    std::string path = "files" + (slash + file);
     std::ifstream ifs(path);
     if(!ifs) return nullptr;
 
@@ -42,7 +42,7 @@ int* duplicateArray(int* arr, int size) {
 
 void exportFile(const std::string &file, int* arr, int size) {
     system("mkdir -p files");
-    std::string path = "files/" + file;
+    std::string path = "files" + (slash + file);
     std::ofstream ofs(path);
 
     if(!ofs) {
@@ -143,7 +143,7 @@ void saveResult(int sort, int order, const std::string results) {
 		}
 	}
 
-	std::string path = "files/" + sortName + "/";
+	std::string path = "files" + (slash + sortName + slash);
     system(("mkdir -p " + ("'" + path + "'")).c_str());
 
 	std::string file = path + orderName + ".txt";

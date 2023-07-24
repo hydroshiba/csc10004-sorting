@@ -157,7 +157,7 @@ void command5(int argc, char* argv[]) {
 void runAll() {
 	size_t sizes[] = {10000, 30000, 50000, 100000, 300000, 500000};
 
-	for(int sort = 11; sort > 0; --sort) {
+	for(int sort = 12; sort > 0; --sort) {
 		std::cout << "Running " << sort::name[sort] << std::endl << std::endl;
 
 		for(int order = 1; order <= 4; ++order) {

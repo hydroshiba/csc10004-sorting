@@ -31,8 +31,6 @@
 *.out
 *.app
 main
-coursemgr
-testing
 
 # Directories
 .vs/
@@ -42,10 +40,8 @@ bin/
 
 # Testing source files
 testing*
-testing.cpp
 
 # Miscellaneous
 .DS_Store
 CMakeLists.txt
-
 *.txt

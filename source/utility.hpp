@@ -44,39 +44,45 @@ size_t to_size(const std::string &s) {
 }
 
 int* importFile(const std::string &file, size_t &size) {
-    ifstream ifile {file};
-    if (!ifile) {
-        cout << "Error: cannot open input file" << endl;
-        return nullptr;
-    }
-    ifile >> size;
-    if (size == 0) return nullptr;
+    std::string path = "files/" + file;
+    ifstream ifs(path);
+    if(!ifs) return nullptr;
+
+    ifs >> size;
+    if(size == 0) return nullptr;
+
     int* arr = new int[size];
     int cnt = 0;
-    while (ifile >> arr[cnt++]) {}
-    ifile.close();
+    while (ifs >> arr[cnt++]);
+    
+    ifs.close();
     return arr;
 }
 
-int* duplicateArray(int* arr, int n) {
-    int* newArr = new int[n];
-    for (int i = 0; i < n; i++) {
-        newArr[i] = arr[i];
+int* duplicateArray(int* arr, int size) {
+    int* dup = new int[size];
+    for(int i = 0; i < size; i++) {
+        dup[i] = arr[i];
     }
-    return newArr;
+    return dup;
 }
 
-void exportFile(int* arr, int n, const std::string &name) {
-    ofstream ofile {name};
-    if (!ofile) {
-        cout << "Error: cannot create export file" << endl;
+void exportFile(const std::string &file, int* arr, int size) {
+    system("mkdir -p files");
+    std::string path = "files/" + file;
+    ofstream ofs(path);
+
+    if(!ofs) {
+        std::cout << "Warning: Cannot create export file" << std::endl;
         return;
     }
-    ofile << n << endl;
-    for (int i = 0; i < n; i++) {
-        ofile << arr[i] << " ";
+
+    ofs << size << '\n';
+    for(int i = 0; i < size; i++) {
+        ofs << arr[i] << ' ';
     }
-    ofile.close();
+
+    ofs.close();
 }
 
 uintmax_t timeSort(int* arr, int size, int sort) {

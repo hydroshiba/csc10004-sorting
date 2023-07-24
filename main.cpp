@@ -34,10 +34,10 @@ int main(int argc, char* argv[]) {
 
 			int* arr = new int[size]();
 			GenerateData(arr, size, order::id[argv[4]] - 1);
-            exportFile(arr, size, "input.txt");
+            exportFile("input.txt", arr, size);
 
             measureSort(arr, size, sort::id[argv[2]], param::id[argv[5]]);
-            exportFile(arr, size, "output.txt");
+            exportFile("output.txt", arr, size);
             
             delete[] arr;
             return 0;
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
                     std::cout << "-----------------------------" << std::endl;
 
                     GenerateData(arr, size, i - 1);
-                    exportFile(arr, size, "input_" +  std::to_string(i) + ".txt");
+                    exportFile("input_" +  std::to_string(i) + ".txt", arr, size);
                     measureSort(arr, size, sort::id[argv[2]], param::id[argv[4]]);
                 }
 
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
                 std::cout << "-----------------------------" << std::endl;
 
                 measureSort(arr, size, sort::id[argv[2]], param::id[argv[4]]);
-                exportFile(arr, size, "output.txt");
+                exportFile("output.txt", arr, size);
                 
                 delete[] arr;
                 return 0;
@@ -161,7 +161,7 @@ int main(int argc, char* argv[]) {
 
             int* arr = new int[size];
             GenerateData(arr, size, order::id[argv[5]] - 1);
-            exportFile(arr, size, "input.txt");
+            exportFile("input.txt", arr, size);
 
             compareSort(arr, size, sort::id[argv[2]], sort::id[argv[3]]);
 

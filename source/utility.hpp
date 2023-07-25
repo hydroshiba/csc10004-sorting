@@ -12,7 +12,6 @@
 #include "utility/timer.hpp"
 #include "utility/DataGenerator.cpp"
 
-
 namespace order {
 	std::unordered_map<std::string, int> id = {
 		{"-rand", 1}, 

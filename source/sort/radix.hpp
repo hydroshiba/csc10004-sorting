@@ -18,7 +18,6 @@
 */
 
 #include <climits>
-#include <cstring>
 #include <iterator>
 #include <utility>
 

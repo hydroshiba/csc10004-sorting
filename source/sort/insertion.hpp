@@ -46,12 +46,12 @@ void insertionSort(iter begin, iter end, Compare &func, CompareLoop &loop) {
         // Shifting the array to make room for the new element
 
         if(func(begin[pos], begin[i])) ++pos;
-        Type temp = std::move(begin[i]);
+        Type temp = begin[i];
 
         for(size_t j = i; loop(pos, j); --j)
-            begin[j] = std::move(begin[j - 1]);
+            begin[j] = begin[j - 1];
 
-        begin[pos] = std::move(temp);
+        begin[pos] = temp;
     }
 }
 

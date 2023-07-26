@@ -90,7 +90,7 @@ std::string measureSort(int* arr, int size, int sort, int param) {
     std::cout << "Running time: " << ((param != 2) ? std::to_string(runtime) : "") << std::endl;
 
     if(param > 1) comparison = countSort(arr, size, sort);
-    std::cout << "Comparisons: " << (comparison ? std::to_string(comparison) : "") << std::endl;
+    std::cout << "Comparisons: " << ((param > 1) ? std::to_string(comparison) : "") << std::endl;
     std::cout << std::endl;
 
 	std::string result = std::to_string(size);

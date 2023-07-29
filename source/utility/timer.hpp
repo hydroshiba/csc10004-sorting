@@ -2,7 +2,6 @@
 #define UTIL_TIMER_HPP
 
 #include <chrono>
-#include <ctime> 
 
 struct Timer {
 	std::chrono::high_resolution_clock::time_point point = std::chrono::high_resolution_clock::now();

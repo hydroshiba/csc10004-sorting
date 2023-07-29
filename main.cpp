@@ -1,7 +1,3 @@
-#include <iostream>
-#include <iomanip>
-#include <cstring>
-
 #include "source/command.hpp"
 
 int main(int argc, char* argv[]) {

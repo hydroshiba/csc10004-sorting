@@ -1,6 +1,8 @@
 #ifndef FUNCTION_HPP
 #define FUNCTION_HPP
 
+#include <iostream>
+
 #include "sort.hpp"
 #include "utility.hpp"
 

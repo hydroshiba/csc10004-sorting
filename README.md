@@ -13,8 +13,8 @@ This is a project from our **Data Structures & Algorithms** course, in which we 
 
 ## How to run
 
-Clone this repository to your local machine, then compiling the `main.cpp` file will suffice.
+Clone this repository to your local machine, then compile the `main.cpp` file. Once the compiling is done, run the executable.
 
 ## Documentation
 
-In progress.
+Read [here](https://github.com/hydroshiba/csc10004-sorting/blob/main/docs/Report.pdf)
